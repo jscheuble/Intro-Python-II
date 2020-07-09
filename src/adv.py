@@ -55,7 +55,28 @@ active_robot = Player(robot_name, room["outside"])
 #
 # If the user enters "q", quit the game.
 
-while True:
+playing = True
+
+while playing:
     print(f"------{active_robot}------")
 
+    # user input
     next_move = input("Choose a direction: n, e, s, w. press q to quit")
+
+    if len(next_move) == 1:
+        # quit game if user inputs q
+        if next_move.lower() == 'q':
+            print("Game over")
+            playing = False
+        # check for direction and property for selected direction
+        if next_move.lower() == 'n' and active_robot.room.n_to:
+            # if property exists, relocate player to new room
+            active_robot.room = active_robot.room.n_to
+        elif next_move.lower() == 'e' and active_robot.room.e_to:
+            active_robot.room = active_robot.room.e_to
+        elif next_move.lower() == 's' and active_robot.room.s_to:
+            active_robot.room = active_robot.room.s_to
+        elif next_move.lower() == 'w' and active_robot.room.w_to:
+            active_robot.room = active_robot.room.w_to
+        else:
+            print("There's nothing over there. Try again")
