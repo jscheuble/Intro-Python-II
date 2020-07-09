@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -37,7 +38,11 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+robot_name = input("Welcome to Robot Fight Club. Name your robot:")
+
 # Make a new player object that is currently in the 'outside' room.
+
+active_robot = Player(robot_name, room["outside"])
 
 # Write a loop that:
 #
@@ -49,3 +54,8 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while True:
+    print(f"------{active_robot}------")
+
+    next_move = input("Choose a direction: n, e, s, w. press q to quit")
