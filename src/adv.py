@@ -92,14 +92,25 @@ while playing:
             if active_robot.inventory:
                 # print inventory
                 for item in active_robot.inventory:
+                    print('Inventory:')
                     print(item)
             else:
                 print('Your inventory is empty :(')
         else:
             print("There's nothing over there. Try again \n")
     elif len(next_move.split(' ')) > 1:
-        if active_robot.room.items:
-            if next_move.startswith('get') or next_move.startswith('take'):
+        if next_move.lower().startswith('get') or next_move.startswith('take'):
+            if active_robot.room.items:
                 print(f'Sweet, I got a {active_robot.room.items}')
                 active_robot.inventory.append(active_robot.room.items)
                 active_robot.room.items = []
+            else:
+                print("There's nothing to take here.")
+        elif next_move.lower().startswith('drop'):
+            if active_robot.inventory:
+                command = next_move.split(' ')
+                active_robot.inventory = [
+                    item for item in active_robot.inventory if item.name.startswith(command[1])]
+                active_robot.room.items.append(str(item[command[1]]))
+            else:
+                print('Your inventory is already empty.')
